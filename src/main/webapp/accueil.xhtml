@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<meta charset="utf-8" name="viewport"
+		content="width=device-width, initial-scale=1"
+		http-equiv="X-UA-Conpatible" />
+	<title>JSF CRUD</title>
+
+<h:outputStylesheet library="css" name="style.css"/>
+</h:head>
+<h:body style="background-image: url(#{request.contextPath}/resources/images/background.jpg);background-repeat: no-repeat;background-size: 100vw 100vh;">
+        	<nav>
+		<input type="checkbox" id="check" />
+		<label for="check" class="checkbtn">
+			<i class="fas fa-bars"></i>
+		</label>
+		
+		<ul>
+			
+	<c:choose>
+	    <c:when test="#{user.role=='admin'}">
+	        <h:outputText style="color: black;font-size: 17px;padding: 7px 13px;border-radius: 3px;text-transform: uppercase;" value="#{user.role}" />
+	        <li><a class="active" href="/AtelierJsf">accueil</a></li>
+	        	<li>
+					<h:outputLink value="UserController">
+						<h:outputText value="Users" />
+						<f:param name="action" value="gererUsers" />
+					</h:outputLink>
+				</li>
+				<li>
+					<h:outputLink value="ArticleController">
+							<h:outputText value="Articles" />
+							<f:param name="action" value="gererArticles" />
+					</h:outputLink>			
+				</li>
+				<li>
+					<h:form>
+						<h:commandLink action="#{loginBean.logout()}" value="Logout"></h:commandLink>
+					</h:form>
+				</li>
+	    </c:when>
+        <c:when test="#{user.role=='user'}">
+        	<li><a class="active" href="/AtelierJsf">accueil</a></li>
+        	<li>
+				<h:outputLink value="UserController">
+						<h:outputText style="color: black;font-size: 17px;padding: 7px 13px;border-radius: 3px;text-transform: uppercase;" value="#{user.prenom}" />
+						<f:param name="action" value="panier" />
+				</h:outputLink>			
+			</li>
+				 
+        <li>
+					<h:outputLink class="active" value="PanierController">
+							<h:outputText value="MonPanier" />
+							<f:param name="action" value="getPanier" />
+					</h:outputLink>			
+				</li>
+
+			<li>
+					<h:form>
+						<h:commandLink action="#{loginBean.logout()}" value="Logout"></h:commandLink>
+					</h:form>
+			</li>
+    	</c:when>
+    	<c:otherwise>
+        	<li><a class="active" href="/AtelierJsf">accueil</a></li>
+           
+        
+			<li>
+				<h:outputLink value="UserController">
+					<h:outputText value="Authentifier" />
+					<f:param name="action" value="authentifier" />
+				</h:outputLink>
+			</li>
+			<li>
+				<h:outputLink value="UserController">
+						<h:outputText value="Registrer" />
+						<f:param name="action" value="register" />
+				</h:outputLink>			
+			</li>
+	    </c:otherwise>
+</c:choose>     		
+		</ul>
+	</nav>
+
+        <div class="box">
+	        
+
+         	
+		<c:choose>
+		    <c:when test="#{user.role=='admin'}">
+		    <div class="container">
+      
+                    <c:if test="${article != null}">
+                    <h:form class="form" enctype="multipart/form-data">
+                        <p>Modifier Article</p>
+            <h:inputText value="#{article.codeArticle}" class="input" type="texte" a:placeholder="Code Article" /><br/>
+			<h:inputText value="#{article.nomArticle}" class="input" type="texte" a:placeholder="Nom Article" /><br/>	
+			<h:inputText value="#{article.prixArticle}" class="input" type="number" a:placeholder="prixArticle" /><br/>
+			<h:panelGrid columns="2" class="inputImage" >
+	            <h:outputText value="Image:"/>
+	            <h:inputFile id="file" value="#{ArticleBean.uploadedFile}"/>
+	        </h:panelGrid>
+     
+<h:commandButton action="#{ArticleBean.modifierArt(article)}" class="input" type="submit" value="Modifier"></h:commandButton>
+                    </h:form>
+                    </c:if>
+                    <c:if test="${article == null}">
+                    <h:form class="form" enctype="multipart/form-data">
+                        <p>Ajouter Article</p>
+                    
+			
+		    <h:inputText value="#{ArticleBean.codeArticle}" class="input" type="texte" a:placeholder="Code Article" /><br/>
+			<h:inputText value="#{ArticleBean.nomArticle}" class="input" type="texte" a:placeholder="Nom Article" /><br/>	
+			<h:inputText value="#{ArticleBean.prixArticle}" class="input" type="number" a:placeholder="prixArticle" /><br/>
+			<h:panelGrid columns="2" class="inputImage" >
+	            <h:outputText value="Image:"/>
+	            <h:inputFile id="file" value="#{ArticleBean.uploadedFile}"/>
+	        </h:panelGrid>
+        	
+		    <h:commandButton action="#{ArticleBean.ajouter()}" class="input" type="submit" value="Ajouter"></h:commandButton>
+		    </h:form>
+		    </c:if>	    
+    
+  <div class="drops">
+    <div class="drop drop-1"></div>
+    <div class="drop drop-2"></div>
+    <div class="drop drop-3"></div>
+    <div class="drop drop-4"></div>
+    <div class="drop drop-5"></div>
+  </div>
+  </div>
+		    </c:when>
+		        <c:when test="#{user.role=='user'}">
+		        <div style="width: 45%">
+		<h3 style="font-weight: 600;line-height: 1.5;text-transform: none;white-space: normal;">A Beautiful House</h3>
+	        	<BR />
+	        	<h1 style="text-transform: none;white-space: normal">Modern Furniture.</h1>
+	        	<BR />
+	        	<p style="color: #7D879C;text-transform: none;white-space: normal;font-size: 18px">Lorem ipsum dolor sit amet. Ut iste maxime est laborum molestiae ab explicabo earum qui molestiae voluptatem a distinctio eaque. Et praesentium deserunt et velit eveniet ut distinctio perferendis sed exercitationem ullam. Rem error explicabo qui tenetur iure eos ducimus galisum est fugiat magnam sit cupiditate minus ut esse tempore eum illo rerum.</p>
+	        	<BR />
+	        	<a style="cursor:pointer;border: 0;font-size: 16px;background-color: #4BB4B4;color:white;padding: 2%" href="http://localhost:8080/AtelierJsf/vitrine.xhtml" >Acheter maintenant </a> 
+		    </div>
+		    </c:when>
+		    <c:otherwise>
+		    <div style="width: 45%">
+		    <h3 style="font-weight: 600;line-height: 1.5;text-transform: none;white-space: normal;">A Beautiful House</h3>
+	        	<BR />
+	        	<h1 style="text-transform: none;white-space: normal">Modern Furniture.</h1>
+	        	<BR />
+	        	<p style="color: #7D879C;text-transform: none;white-space: normal;font-size: 18px">Lorem ipsum dolor sit amet. Ut iste maxime est laborum molestiae ab explicabo earum qui molestiae voluptatem a distinctio eaque. Et praesentium deserunt et velit eveniet ut distinctio perferendis sed exercitationem ullam. Rem error explicabo qui tenetur iure eos ducimus galisum est fugiat magnam sit cupiditate minus ut esse tempore eum illo rerum.</p>
+	        	<BR />
+		<h:commandButton style="cursor:pointer;border: 0;font-size: 16px;background-color: #4BB4B4;color:white;padding: 2%" value = "Shop Now"  /> 
+			</div>
+			</c:otherwise>
+		</c:choose> 
+	        	
+	        </div>
+        
+        
+
+
+		      
+
+      
+    </h:body>
+</html>

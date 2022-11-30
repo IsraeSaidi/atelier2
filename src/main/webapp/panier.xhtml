@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core">
+<h:head>
+	<meta charset="utf-8" name="viewport"
+		content="width=device-width, initial-scale=1"
+		http-equiv="X-UA-Conpatible" />
+	<title>JSF CRUD</title>
+
+<h:outputStylesheet library="css" name="style.css"/>
+</h:head>
+<h:body style="background-image: url(#{request.contextPath}/resources/images/background.jpg);background-repeat: no-repeat;background-size: 100vw 100vh;">
+        	<nav>
+		<input type="checkbox" id="check" />
+		<label for="check" class="checkbtn">
+			<i class="fas fa-bars"></i>
+		</label>
+		<label class="logo">Atelier JSF</label>
+		<ul>
+
+	        <h:outputText style="color: black;font-size: 17px;padding: 7px 13px;border-radius: 3px;text-transform: uppercase;" value="#{user.role}" />
+	        <li><a  href="/AtelierJsf">accueil</a></li>
+	        	 <c:choose>
+	        <c:when test="#{user.role}=='admin'">
+	        	<li>
+					<h:outputLink  value="UserController">
+						<h:outputText value="Users" />
+						<f:param name="action" value="gererUsers" />
+					</h:outputLink>
+				</li>
+				<li>
+					<h:outputLink class="active" value="UserController">
+							<h:outputText value="Articles" />
+							<f:param name="action" value="gererArticles" />
+					</h:outputLink>			
+				</li>
+				  </c:when>
+				  
+				  	  <c:otherwise>
+        <li>
+					<h:outputLink class="active" value="PanierController">
+							<h:outputText value="MonPanier" />
+							<f:param name="action" value="getPanier" />
+					</h:outputLink>			
+				</li>
+    </c:otherwise>
+				  </c:choose>
+				<li>
+					<h:form>
+						<h:commandLink action="#{loginBean.logout()}" value="Logout"></h:commandLink>
+					</h:form>
+				</li>
+
+    		
+		</ul>
+	</nav>
+
+
+	<div class="box" style="height:75%;">
+	<br/>
+	<br/>
+	<br/>
+
+
+
+ 
+         
+           
+
+
+
+
+<div class="container" style="width: 100%;height:80%;">
+	         <h:form style="padding: 2em;height:100%;" class="form1" >
+		<h:dataTable style="height:70vh;"  value="#{PanierBean.getPanier(user.getId())}" var="panier"
+			border="1">
+            
+		
+			<h:column>
+				<f:facet  name="header">Quantité</f:facet>
+				<h:outputText  value="#{panier.quantite}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet  name="header">nom Article</f:facet>
+				<h:outputText  value="#{panier.article.nomArticle}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet   name="header">Image</f:facet>
+				<img style="width:100px;height:100px" src="http://localhost:8080/AtelierJsf/resources/images/#{panier.article.image}" />
+				
+			</h:column>
+
+	<h:column>
+				<f:facet  name="header">prix unitaire</f:facet>
+				<h:outputText  value="#{panier.article.prixArticle} DH"></h:outputText>
+			</h:column>
+
+	<h:column>
+				<f:facet  name="header">prix Total</f:facet>
+				<h:outputText  value="#{panier.article.prixArticle*panier.quantite} DH"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet  name="header">action</f:facet>
+				<h:commandButton style="cursor:pointer;border: 0;font-size: 16px;background-color: red;color:white;padding: 10px"  action="#{PanierBean.supprimer(panier.id)}" value="supprimer"></h:commandButton>
+				<h:commandButton style="cursor:pointer;border: 0;font-size: 16px;background-color: green;color:white;padding: 10px"  action="#{PanierBean.editer(panier.id)}" value="modifier"></h:commandButton>
+			</h:column>
+		</h:dataTable>
+		    
+    </h:form>
+
+  <div class="drops">
+    <div class="drop drop-1"></div>
+    <div class="drop drop-2"></div>
+    <div class="drop drop-3"></div>
+    <div class="drop drop-4"></div>
+    <div class="drop drop-5"></div>
+  </div>  	
+	      
+
+ 
+  
+  </div>          
+        
+
+
+
+  	
+	        </div>
+     
+        
+
+
+		      
+<style>
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: #bfb7ac;
+  padding: 10px;
+}
+.grid-item {
+  background-color: rgba(255, 255, 255, 255);
+  padding: 70px;
+  font-size: 30px;
+  text-align: center;
+  border:solid gray 1px;
+
+}
+.prix{
+font-size:12px;
+}
+</style>
+      
+    </h:body>
+</html>

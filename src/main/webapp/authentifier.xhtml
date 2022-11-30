@@ -1,0 +1,56 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+    <h:head>
+        <title>Accueil</title>
+<h:outputStylesheet library="css" name="style.css"/>
+</h:head>
+<h:body style="background-image: url(#{request.contextPath}/resources/images/background.jpg);background-repeat: no-repeat;background-size: 100vw 100vh;">
+        	<nav>
+		<input type="checkbox" id="check" />
+		<label for="check" class="checkbtn">
+			<i class="fas fa-bars"></i>
+		</label>
+		<label class="logo">Atelier JSF</label>
+		<ul>
+			<li><a  href="/AtelierJsf">accueil</a></li>
+			<li>
+				<h:outputLink value="UserController" class="active">
+					<h:outputText value="Authentifier" />
+					<f:param name="action" value="authentifier" />
+				</h:outputLink>
+			</li>
+			<li>
+				<h:outputLink value="UserController">
+						<h:outputText value="Registrer" />
+						<f:param name="action" value="register" />
+				</h:outputLink>			
+			</li>
+		</ul>
+	</nav>
+	<div class="box">
+<div class="container">
+
+  
+    <h:form class="form">
+			<p>Welcome</p>
+		    <h:inputText value="#{loginBean.email}" class="input" type="texte" a:placeholder="Email" /><br/>
+		    <h:inputSecret value="#{loginBean.pwd}" class="input"  type="password" a:placeholder="Mot De Passe" ></h:inputSecret><br/>
+		    <h:commandButton action="#{loginBean.validateUsernamePassword()}" class="input" type="submit" value="Authentifier"></h:commandButton><br/>
+		    
+		    <a href="#">Oublie Mot de Passe?</a>
+    </h:form>
+
+  <div class="drops">
+    <div class="drop drop-1"></div>
+    <div class="drop drop-2"></div>
+    <div class="drop drop-3"></div>
+    <div class="drop drop-4"></div>
+    <div class="drop drop-5"></div>
+  </div>
+</div>
+	</div>
+    </h:body>
+</html>

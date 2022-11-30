@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>jpaJsf</display-name>
+  <welcome-file-list>
+    <welcome-file>accueil.xhtml</welcome-file>
+  </welcome-file-list>
+  
+  <!-- JSF class -->
+    <servlet>
+        <servlet-name>FacesServletMappingName</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <!-- Mapping xhtml files to the JSF Servlet -->
+    <servlet-mapping>
+        <servlet-name>FacesServletMappingName</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>UserController</servlet-name>
+        <servlet-class>ma.fstt.controller.UserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ArticleController</servlet-name>
+        <servlet-class>ma.fstt.controller.ArticleController</servlet-class>
+    </servlet>
+  
+    <servlet-mapping>
+        <servlet-name>UserController</servlet-name>
+        <url-pattern>/AtelierJsf/UserController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ArticleController</servlet-name>
+        <url-pattern>/AtelierJsf/ArticleController</url-pattern>
+    </servlet-mapping>
+
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>

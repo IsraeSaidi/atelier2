@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core">
+<h:head>
+	<meta charset="utf-8" name="viewport"
+		content="width=device-width, initial-scale=1"
+		http-equiv="X-UA-Conpatible" />
+	<title>JSF CRUD</title>
+
+<h:outputStylesheet library="css" name="style.css"/>
+</h:head>
+<h:body style="background-image: url(#{request.contextPath}/resources/images/background.jpg);background-repeat: no-repeat;background-size: 100vw 100vh;">
+        	<nav>
+		<input type="checkbox" id="check" />
+		<label for="check" class="checkbtn">
+			<i class="fas fa-bars"></i>
+		</label>
+		<label class="logo">Atelier JSF</label>
+		<ul>
+
+	        <h:outputText style="color: black;font-size: 17px;padding: 7px 13px;border-radius: 3px;text-transform: uppercase;" value="#{user.role}" />
+	        <li><a  href="/AtelierJsf">accueil</a></li>
+	        	<li>
+					<h:outputLink class="active" value="UserController">
+						<h:outputText value="Users" />
+						<f:param name="action" value="gererUsers" />
+					</h:outputLink>
+				</li>
+				<li>
+					<h:outputLink value="ArticleController">
+							<h:outputText value="Articles" />
+							<f:param name="action" value="gererArticles" />
+					</h:outputLink>			
+				</li>
+				<li>
+					<h:form>
+						<h:commandLink action="#{loginBean.logout()}" value="Logout"></h:commandLink>
+					</h:form>
+				</li>
+
+    		
+		</ul>
+	</nav>
+
+
+	<div class="box" style="height:75%;">
+	<br/>
+	<br/>
+	<br/>
+<div class="container" style="width: 100%;height:80%;">
+	         <h:form style="padding: 2em;height:100%;" class="form1" >
+		<h:dataTable  value="#{InternauteBean.getAll()}" var="Internaute"
+			border="1">
+			<h:column>
+				<f:facet  name="header">Nom</f:facet>
+				<h:outputText  value="#{Internaute.nom}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet  name="header">Prenom</f:facet>
+				<h:outputText  value="#{Internaute.prenom}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet  name="header">Email</f:facet>
+				<h:outputText  value="#{Internaute.email}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet   name="header">Telephone</f:facet>
+				<h:outputText  value="#{Internaute.telephone}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet  name="header">Adresse</f:facet>
+				<h:outputText  value="#{Internaute.adresse}"></h:outputText>
+			</h:column>
+
+			<h:column>
+				<f:facet  name="header">supprimer</f:facet>
+				<h:commandButton style="cursor:pointer;border: 0;font-size: 16px;background-color: red;color:white;padding: 10px"  action="#{InternauteBean.supprimer(Internaute.id)}" value="supprimer"></h:commandButton>
+			</h:column>
+		</h:dataTable>
+		    
+    </h:form>
+
+  <div class="drops">
+    <div class="drop drop-1"></div>
+    <div class="drop drop-2"></div>
+    <div class="drop drop-3"></div>
+    <div class="drop drop-4"></div>
+    <div class="drop drop-5"></div>
+  </div>  	
+	        </div>
+        </div>
+        
+
+
+		      
+
+      
+    </h:body>
+</html>
